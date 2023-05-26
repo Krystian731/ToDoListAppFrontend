@@ -1,3 +1,4 @@
+
 <table>
   <tr *ngFor="let task of tasks | async">
     <td>{{task.taskText}}</td>
@@ -8,5 +9,3 @@
   <input type="text" name="taskDescription" required #taskData>
   <button type="submit" (click)="onSubmit(taskData.value)">Submit</button>
 </form>
-
-
