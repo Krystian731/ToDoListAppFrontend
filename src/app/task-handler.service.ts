@@ -10,10 +10,7 @@ import {DataGeneratorService} from "./data-generator.service";
 export class TaskHandlerService {
 constructor(private http: HttpClient, private dataHandler:DataGeneratorService) {
 }
-  // getTasks():Observable<Task[]>{
-  //   const data:Task[] = [{id:1,name:'jablka'},{id:2,name:'gruszki'}];
-  //   return of(data);
-  // }
+
   tasks:any;
 userId:string="2";
   getTaskByUserId:string ="http://localhost:8080/tasks/"+this.userId;
@@ -21,7 +18,7 @@ userId:string="2";
      this.tasks = this.http.get("http://localhost:8080/tasks/2");
     return this.tasks;
   }
-<<<<<<< HEAD
+
   newPost:any;
   addTask(description:string):void{
     const body = {
@@ -36,12 +33,8 @@ userId:string="2";
     );
   }
   //TODO make functions to delete task and edit path
-=======
-  addTask(description:string){
-    //this.http.post('http://localhost:8080/tasks');
-  }
   //TODO make put task, edit task, delete task.
->>>>>>> d7899317af87fe667103d0a99752513a3637df50
+
 
 
 }
