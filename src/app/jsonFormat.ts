@@ -1,4 +1,7 @@
 export interface Task{
-  id:number;
-  name:string;
+  "taskText": string;
+  "taskId": number;
+  "taskDate": number[];
+  "userId": number;
+  "taskCompletionDate": number[];
 }

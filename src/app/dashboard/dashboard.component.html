@@ -1,6 +1,14 @@
-<ol>
-  <li *ngFor="let task of tasks | async" >
-    {{task |json }}
-  </li>
+<!--<ul>-->
+<!--  <li *ngFor="let task of tasks | async" >-->
+<!--    {{task |json }}-->
+<!--  </li>-->
 
-</ol>
+<!--</ul>-->
+
+<table>
+  <tr *ngFor="let task of tasks | async">
+    <td>{{task.taskText}}</td>
+  </tr>
+</table>
+
+

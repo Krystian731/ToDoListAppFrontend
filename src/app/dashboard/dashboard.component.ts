@@ -11,8 +11,9 @@ import {Task} from '../jsonFormat';
 export class DashboardComponent {
   constructor(private handler:TaskHandlerService){}
 
-  tasks:Task[]|any;
+  tasks:Task[] | any;
   ngOnInit() {
     this.tasks=this.handler.getTasks();
   }
 }
+//TODO create buttons dto delete edit and add task
