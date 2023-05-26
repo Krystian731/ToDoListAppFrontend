@@ -9,11 +9,17 @@ import {Task} from '../jsonFormat';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  constructor(private handler:TaskHandlerService){}
+  constructor(public handler:TaskHandlerService){}
 
   tasks:Task[] | any;
   ngOnInit() {
     this.tasks=this.handler.getTasks();
   }
+  onSubmit(taskDescription:any):void{
+    this.handler.addTask(taskDescription);
+    console.log('onSubmit works!'+ taskDescription);
 }
-//TODO create buttons dto delete edit and add task
+}
+//TODO create buttons for deleting tasks and and editing tasks.
+//TODO create messeges component to give info for user.
+//TODO create authenitication system.

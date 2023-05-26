@@ -1,14 +1,12 @@
-<!--<ul>-->
-<!--  <li *ngFor="let task of tasks | async" >-->
-<!--    {{task |json }}-->
-<!--  </li>-->
-
-<!--</ul>-->
-
 <table>
   <tr *ngFor="let task of tasks | async">
     <td>{{task.taskText}}</td>
   </tr>
+
 </table>
+<form>
+  <input type="text" name="taskDescription" required #taskData>
+  <button type="submit" (click)="onSubmit(taskData.value)">Submit</button>
+</form>
 
 
