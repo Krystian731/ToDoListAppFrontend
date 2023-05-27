@@ -31,17 +31,20 @@ constructor(private http: HttpClient, private dataHandler:DataGeneratorService) 
   }
 
   newPost:any;
-  addTask(description:string):void{
+  addTask(description:string){
+    const taskUrl = 'http://localhost:8080/tasks';
     const body = {
       taskId: 0,
       userId: 2,
       taskText:description,
       taskDate:null,
       taskCompletionDate: null
-    };
-    this.http.post('http://localhost:8080/tasks', body).subscribe(
-      (res) => {console.log(res);}
+    };//TODO rewrite this body to get some parameters
+    return this.http.post(taskUrl, body).pipe(
+      retry(3),
+      catchError(this.handleError)
     );
+
   }
   //TODO make functions to delete task and edit path
   //TODO make put task, edit task, delete task.

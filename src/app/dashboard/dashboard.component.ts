@@ -20,8 +20,7 @@ export class DashboardComponent {
 
 
   onSubmit(taskDescription: any): void {
-    this.handler.addTask(taskDescription);
-    console.log('onSubmit works!' + taskDescription);
+    this.handler.addTask(taskDescription).subscribe();
   }
 }
 
