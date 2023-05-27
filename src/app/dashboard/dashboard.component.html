@@ -1,8 +1,8 @@
 <table>
   <tr *ngFor="let task of tasks">
     <td>{{task.taskText}}</td>
-    <button type="button" (click)="onDelete(task.taskId)" >X - {{task.taskId}}</button>
-    <button [routerLink]="['/edit-card', task.taskId]">edit</button>
+    <button type="button" (click)="onDelete(task.taskId)" onClick="window.location.reload(true)">X - {{task.taskId}}</button>
+    <button [routerLink]="['/edit-card', task.taskId]" >edit</button>
   </tr>
 
 </table>

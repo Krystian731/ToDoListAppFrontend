@@ -32,6 +32,25 @@ constructor(private http: HttpClient, private dataHandler:DataGeneratorService) 
        catchError(this.handleError)
      );
   }
+  getTask(taskId:number){
+  //this api request won't work bcs API doesn't have future to get single task by taskID
+    const tasksUrl="http://localhost:8080/tasks/";
+    const userId=2;//TODO make it take value as a parameter
+    return this.http.get<Task>(tasksUrl+userId+"/"+taskId).pipe(
+      retry(3),
+      catchError(this.handleError)
+    );
+
+  }
+  updateTask(taskId:number,taskNewText:string){
+    const userId=2;//TODO make it take value as a parameter
+    //LOL server works on a bisc link, it should not work like this. It should update data based on patch's body.
+    const tasksUrl="http://localhost:8080/tasks/"+taskId+"/updateText?text="+taskNewText;
+
+    return this.http.patch<Task>(tasksUrl,"").pipe(
+     catchError(this.handleError)
+    );
+  }
 
   newPost:any;
   addTask(description:string){
@@ -51,9 +70,9 @@ constructor(private http: HttpClient, private dataHandler:DataGeneratorService) 
   }
   deleteTask(taskId:number){
     const userId=2;
-    //const taskDeleteUrl = 'http://localhost:8080/tasks/'+ userId + '/' + taskId;
+    const taskDeleteUrl = 'http://localhost:8080/tasks/'+ userId + '/' + taskId;
 
-    return this.http.delete('http://localhost:8080/tasks/2/29').pipe(
+    return this.http.delete(taskDeleteUrl).pipe(
       catchError(this.handleError)
     );
   }

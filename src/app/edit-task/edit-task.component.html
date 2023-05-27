@@ -1,1 +1,4 @@
-<p>edit-task works!</p>
+<form>
+  <input type="text" placeholder="write new description" value="" #newDescription>
+  <input type="submit" (click)="onSubmit(newDescription.value)" onClick="window.location.reload(true)">
+</form>

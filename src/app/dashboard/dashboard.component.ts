@@ -11,6 +11,8 @@ import {Task} from '../jsonFormat';
 export class DashboardComponent {
   constructor(public handler: TaskHandlerService) {
   }
+//TODO ngonitinit create a vlue of input
+//TODO create a function in servie with path
 
   tasks: Task[]| undefined;
 
