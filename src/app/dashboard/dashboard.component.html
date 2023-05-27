@@ -2,6 +2,7 @@
   <tr *ngFor="let task of tasks">
     <td>{{task.taskText}}</td>
     <button type="button" (click)="onDelete(task.taskId)" >X - {{task.taskId}}</button>
+    <button [routerLink]="['/edit-card', task.taskId]">edit</button>
   </tr>
 
 </table>
@@ -9,3 +10,4 @@
   <input type="text" name="taskDescription" required #taskData>
   <button type="submit" (click)="onSubmit(taskData.value)" onClick="window.location.reload(true)">Submit</button>
 </form>
+<router-outlet></router-outlet>
