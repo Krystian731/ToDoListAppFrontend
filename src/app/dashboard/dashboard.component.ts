@@ -12,11 +12,12 @@ export class DashboardComponent {
   constructor(public handler: TaskHandlerService) {
   }
 
-  tasks: Task[] | any;
+  tasks: Task[]| undefined;
 
   ngOnInit() {
-    this.tasks = this.handler.getTasks();
-  }
+    this.handler.getTasks().subscribe((data)=>this.tasks=data);
+  }//TODO make unsubscribe
+
 
   onSubmit(taskDescription: any): void {
     this.handler.addTask(taskDescription);

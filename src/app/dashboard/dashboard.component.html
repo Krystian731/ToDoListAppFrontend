@@ -1,11 +1,11 @@
 
 <table>
-  <tr *ngFor="let task of tasks | async">
+  <tr *ngFor="let task of tasks">
     <td>{{task.taskText}}</td>
   </tr>
 
 </table>
 <form>
   <input type="text" name="taskDescription" required #taskData>
-  <button type="submit" (click)="onSubmit(taskData.value)">Submit</button>
+  <button type="submit" (click)="onSubmit(taskData.value)" onClick="window.location.reload(true)">Submit</button>
 </form>

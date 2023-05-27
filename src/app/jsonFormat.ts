@@ -1,10 +1,9 @@
 export interface Task{
   "taskText": string;
   "taskId": number;
-  "taskDate": number[];
+  "taskDate": number[]|undefined;
   "userId": number;
-  "taskCompletionDate": number[];
-<<<<<<< HEAD
+  "taskCompletionDate": number[]|undefined;
 }
 
 export interface newTask{
@@ -12,6 +11,5 @@ export interface newTask{
   userId:number;
   taskText:string;
   taskDate:string;//TODO fetch realtime data from the time server and include it here.
-=======
->>>>>>> d7899317af87fe667103d0a99752513a3637df50
+
 }

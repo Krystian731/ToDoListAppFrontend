@@ -10,13 +10,30 @@ import {DataGeneratorService} from "./data-generator.service";
 export class TaskHandlerService {
 constructor(private http: HttpClient, private dataHandler:DataGeneratorService) {
 }
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `, error.error);
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(() => new Error('Something bad happened; please try again later.'));
+  }
 
   tasks:any;
 userId:string="2";
   getTaskByUserId:string ="http://localhost:8080/tasks/"+this.userId;
-  getTasks():Observable<Task[]>{
-     this.tasks = this.http.get("http://localhost:8080/tasks/2");
-    return this.tasks;
+  getTasks(){
+    const tasksUrl="http://localhost:8080/tasks/";
+    const userId=2;//TODO make it take value as a parameter
+     return this.http.get<Task[]>(tasksUrl+userId).pipe(
+       retry(3),
+       catchError(this.handleError)
+     );
   }
 
   newPost:any;
