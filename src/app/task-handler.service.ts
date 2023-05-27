@@ -12,9 +12,12 @@ constructor(private http: HttpClient, private dataHandler:DataGeneratorService) 
 }
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
+      console.log('error status ='+error.error+' br '+ error.status);
       console.error('An error occurred:', error.error);
+
     }
     else {
+      console.log('error status ='+error.error+' br '+ error.status);
       console.error(
         `Backend returned code ${error.status}, body was: `, error.error);
     }
@@ -45,6 +48,14 @@ constructor(private http: HttpClient, private dataHandler:DataGeneratorService) 
       catchError(this.handleError)
     );
 
+  }
+  deleteTask(taskId:number){
+    const userId=2;
+    //const taskDeleteUrl = 'http://localhost:8080/tasks/'+ userId + '/' + taskId;
+
+    return this.http.delete('http://localhost:8080/tasks/2/29').pipe(
+      catchError(this.handleError)
+    );
   }
   //TODO make functions to delete task and edit path
   //TODO make put task, edit task, delete task.

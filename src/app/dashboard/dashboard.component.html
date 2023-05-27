@@ -1,7 +1,7 @@
-
 <table>
   <tr *ngFor="let task of tasks">
     <td>{{task.taskText}}</td>
+    <button type="button" (click)="onDelete(task.taskId)" >X - {{task.taskId}}</button>
   </tr>
 
 </table>

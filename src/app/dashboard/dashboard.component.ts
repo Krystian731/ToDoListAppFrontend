@@ -22,6 +22,11 @@ export class DashboardComponent {
   onSubmit(taskDescription: any): void {
     this.handler.addTask(taskDescription).subscribe();
   }
+
+  onDelete(taskID:number){
+    this.handler.deleteTask(taskID).subscribe();
+  }
+
 }
 
 //TODO create buttons for deleting tasks and and editing tasks.
