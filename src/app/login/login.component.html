@@ -1,5 +1,12 @@
 <h1>zarejestruj się</h1>
 <form>
-  <input type="username" placeholder="username" #username>
+  <input type="text" placeholder="username" #username>
   <input type="submit" (click)="addNewUser(username.value)">
 </form>
+
+<h1>Zaloguj się </h1>
+<form>
+  <input type="text" #userData>
+  <input type="submit" (click)="Authorization(userData.value)">
+</form>
+proper-username:{{properUsername}}
