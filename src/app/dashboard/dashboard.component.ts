@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {HttpHandler} from "@angular/common/http";
 import {TaskHandlerService} from "../task-handler.service";
 import {Task} from '../jsonFormat';
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +10,7 @@ import {Task} from '../jsonFormat';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  constructor(public handler: TaskHandlerService) {
+  constructor(public handler: TaskHandlerService, private authorization:AuthService) {
   }
 //TODO ngonitinit create a vlue of input
 //TODO create a function in servie with path
@@ -18,6 +19,8 @@ export class DashboardComponent {
 
   ngOnInit() {
     this.handler.getTasks().subscribe((data)=>this.tasks=data);
+    this.authorization.checkIfLoggedIn();
+
   }//TODO make unsubscribe
 
 

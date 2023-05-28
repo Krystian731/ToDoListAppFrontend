@@ -18,4 +18,25 @@ export class AuthService {
       console.log(err) // when there's an error
     });
   }// noto jeszcze musze zrobic te funckje co sie wywoluja w kazdym czyli checkIflogedIn
+  checkIfLoggedInLoginPage(){
+    if(this.isLoggedIn){
+      //router.navigate to dashborad
+      this.router.navigate(['/','dashboard']).then(nav => {
+        console.log(nav); // true if navigation is successful
+      }, err => {
+        console.log(err) // when there's an error
+      });
+    }
+  }
+  checkIfLoggedIn(){
+    if(!this.isLoggedIn){
+      //router.navigate to dashborad
+      this.router.navigate(['/','loginPage']).then(nav => {
+        console.log(nav); // true if navigation is successful
+      }, err => {
+        console.log(err) // when there's an error
+      });
+    }
+  }
 }
+

@@ -1,4 +1,4 @@
-import {Component, DoCheck} from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {UsersHandlerService} from "../users-handler.service";
 import {AuthService} from "../auth.service";
@@ -9,7 +9,11 @@ import {AuthService} from "../auth.service";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements DoCheck{
+export class LoginComponent implements DoCheck, OnInit{
+  ngOnInit() {
+    this.authorizaion.checkIfLoggedInLoginPage();
+  }
+
   ngDoCheck(): void {
     if (this.properUsername===true) {
       console.log('properusername ===true');
