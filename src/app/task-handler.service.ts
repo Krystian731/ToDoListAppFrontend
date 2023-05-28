@@ -76,6 +76,12 @@ constructor(private http: HttpClient, private dataHandler:DataGeneratorService) 
       catchError(this.handleError)
     );
   }
+  finishTask(taskId:number, taskFinishDate:string){
+    const taskFinishUrl = 'http://localhost:8080/tasks/'+taskId+'/taskCompleted?taskCompletionDate='+taskFinishDate;
+    return this.http.patch(taskFinishUrl,"").pipe(
+      catchError(this.handleError)
+    );
+  }
   //TODO make functions to delete task and edit path
   //TODO make put task, edit task, delete task.
 

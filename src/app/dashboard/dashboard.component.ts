@@ -31,7 +31,10 @@ export class DashboardComponent {
   onDelete(taskID:number){
     this.handler.deleteTask(taskID).subscribe();
   }
-
+  onDone(taskId:number) {
+    const taskFinishDate="2023-05-28T00:00:00"
+    this.handler.finishTask(taskId, taskFinishDate).subscribe();
+  }
 }
 
 //TODO create buttons for deleting tasks and and editing tasks.
