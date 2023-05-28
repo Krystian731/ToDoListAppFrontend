@@ -6,35 +6,33 @@ import {Router} from "@angular/router";
 })
 export class AuthService {
   isLoggedIn=false;
-  username = "";
-
   constructor(private router:Router) { }
+  username="";
+
   handleUserProperlyLogged(username:string){
-    console.log("in function usersproperluloged");
     this.isLoggedIn=true;
+    this.username=username;
     this.router.navigate(['/', 'dashboard']).then(nav => {
-      console.log(nav); // true if navigation is successful
+      console.log(nav);
     }, err => {
-      console.log(err) // when there's an error
+      console.log(err)
     });
-  }// noto jeszcze musze zrobic te funckje co sie wywoluja w kazdym czyli checkIflogedIn
+  }
   checkIfLoggedInLoginPage(){
     if(this.isLoggedIn){
-      //router.navigate to dashborad
       this.router.navigate(['/','dashboard']).then(nav => {
-        console.log(nav); // true if navigation is successful
+        console.log(nav);
       }, err => {
-        console.log(err) // when there's an error
+        console.log(err)
       });
     }
   }
   checkIfLoggedIn(){
     if(!this.isLoggedIn){
-      //router.navigate to dashborad
       this.router.navigate(['/','loginPage']).then(nav => {
-        console.log(nav); // true if navigation is successful
+        console.log(nav);
       }, err => {
-        console.log(err) // when there's an error
+        console.log(err)
       });
     }
   }

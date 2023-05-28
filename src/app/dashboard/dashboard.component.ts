@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import {HttpHandler} from "@angular/common/http";
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TaskHandlerService} from "../task-handler.service";
 import {Task} from '../jsonFormat';
 import {AuthService} from "../auth.service";
@@ -9,25 +8,29 @@ import {AuthService} from "../auth.service";
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit{
   constructor(public handler: TaskHandlerService, private authorization:AuthService) {
   }
-//TODO ngonitinit create a vlue of input
-//TODO create a function in servie with path
 
   tasks: Task[]| undefined;
+  getTasksSubscribe:any;
+  onSubmitSubscribe:any;
+  onDeleteSubscribe:any;
 
   ngOnInit() {
-    this.handler.getTasks().subscribe((data)=>this.tasks=data);
+    this.getTasksSubscribe=this.handler.getTasks().subscribe((data)=>this.tasks=data);
     this.authorization.checkIfLoggedIn();
-
-  }//TODO make unsubscribe
-
+  }
+  // ngOnDestroy()
+  // {
+  //   this.getTasksSubscribe.unsubscribe();
+  //   this.onSubmitSubscribe.unsubscribe();
+  //   this.onDeleteSubscribe.unsubscribe();
+  // }
 
   onSubmit(taskDescription: any): void {
     this.handler.addTask(taskDescription).subscribe();
   }
-
   onDelete(taskID:number){
     this.handler.deleteTask(taskID).subscribe();
   }
@@ -36,7 +39,3 @@ export class DashboardComponent {
     this.handler.finishTask(taskId, taskFinishDate).subscribe();
   }
 }
-
-//TODO create buttons for deleting tasks and and editing tasks.
-//TODO create messeges component to give info for user.
-//TODO create authenitication system

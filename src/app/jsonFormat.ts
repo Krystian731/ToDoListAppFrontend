@@ -5,7 +5,6 @@ export interface Task{
   "userId": number;
   "taskCompletionDate": number[]|undefined;
 }
-
 export interface newTask{
   taskId:number;
   userId:number;

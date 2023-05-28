@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DataGeneratorService } from './data-generator.service';
+import { ErrorHandlerService } from './error-handler.service';
 
-describe('DataGeneratorService', () => {
-  let service: DataGeneratorService;
+describe('ErrorHandlerService', () => {
+  let service: ErrorHandlerService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DataGeneratorService);
+    service = TestBed.inject(ErrorHandlerService);
   });
 
   it('should be created', () => {
