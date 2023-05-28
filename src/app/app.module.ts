@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import {FormsModule} from "@angular/forms";
 import { EditTaskComponent } from './edit-task/edit-task.component';
 import { LoginComponent } from './login/login.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { LoginComponent } from './login/login.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
