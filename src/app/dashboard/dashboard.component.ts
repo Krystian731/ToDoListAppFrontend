@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TaskHandlerService} from "../task-handler.service";
 import {Task} from '../jsonFormat';
 import {AuthService} from "../auth.service";
+import {MatTableModule} from '@angular/material/table';
 
 @Component({
   selector: 'app-dashboard',

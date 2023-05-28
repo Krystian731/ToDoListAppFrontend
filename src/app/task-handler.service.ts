@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import { catchError, retry } from 'rxjs/operators';
 import {Task} from './jsonFormat';
 import {ErrorHandlerService} from "./error-handler.service";
+
 @Injectable({
   providedIn: 'root'
 })
@@ -47,7 +48,8 @@ constructor(private http: HttpClient, private errorhandler:ErrorHandlerService) 
     };
     return this.http.post(taskUrl, body).pipe(
       retry(3),
-      catchError(this.errorhandler.handleError)
+      catchError(this.errorhandler.handleError),
+
     );
 
   }

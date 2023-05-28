@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', component: LoginComponent },
   {path: 'dashboard', component: DashboardComponent , children:[{ path: 'edit-card/:id', component:EditTaskComponent }]},
   {path: 'loginPage', component: LoginComponent},
-  { path: '**',redirectTo: ''},//it should be dashborad compt
+  { path: '**',redirectTo: ''}
 ];
 
 

@@ -1,12 +1,13 @@
-<table>
+<table >
   <tr *ngFor="let task of tasks">
     <td>{{task.taskText}}</td>
-    <button type="button" (click)="onDelete(task.taskId)" onClick="window.location.reload(true)"g>X - {{task.taskId}}</button>
+    <button type="button" (click)="onDelete(task.taskId)" onClick="window.location.reload(true)"g>X</button>
     <button [routerLink]="['edit-card', task.taskId]" >edit</button>
     <button (click)="onDone(task.taskId)" onClick="window.location.reload(true)">DONE</button>
   </tr>
 
 </table>
+
 <form>
   <input type="text" name="taskDescription" required #taskData>
   <button type="submit" (click)="onSubmit(taskData.value)" onClick="window.location.reload(true)">Submit</button>
