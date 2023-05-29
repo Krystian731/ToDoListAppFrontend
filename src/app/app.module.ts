@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from "@angular/material/icon";
+import {CookieService} from "ngx-cookie-service";
 
 
 
@@ -32,7 +33,7 @@ import {MatIconModule} from "@angular/material/icon";
     MatIconModule,
     MatTableModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
