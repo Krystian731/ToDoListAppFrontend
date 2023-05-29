@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import {OnDestroy} from '@angular/core';
 import {TaskHandlerService} from '../task-handler.service';
 import {Subject, takeUntil} from "rxjs";
+import {RoutingService} from "../routing.service";
 
 @Component({
   selector: 'app-edit-task',
@@ -12,7 +13,8 @@ import {Subject, takeUntil} from "rxjs";
 export class EditTaskComponent implements OnInit,OnDestroy {
   constructor(
     private route: ActivatedRoute,
-    private handler:TaskHandlerService
+    private handler:TaskHandlerService,
+    private routing:RoutingService
   ){}
 
   id: number = 0;
@@ -33,7 +35,11 @@ export class EditTaskComponent implements OnInit,OnDestroy {
   onSubmit(taskNewText:string){
     this.handler.updateTask(this.id,taskNewText).pipe(
       takeUntil(this.unSubOnSubmit$)
-    ).subscribe();
+    ).subscribe(
+      res =>{
+        this.routing.refreshPage()
+      }
+    );
   }
   ngOnDestroy(){
     this.unSubGetAllUnfinishedTasks$.next();

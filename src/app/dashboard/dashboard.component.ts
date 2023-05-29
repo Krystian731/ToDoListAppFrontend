@@ -4,6 +4,8 @@ import {Task} from '../jsonFormat';
 import {AuthService} from "../auth.service";
 import {MatTableModule} from '@angular/material/table';
 import {Subject, takeUntil} from "rxjs";
+import {Router} from "@angular/router";
+import {RoutingService} from "../routing.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -11,8 +13,12 @@ import {Subject, takeUntil} from "rxjs";
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit,OnDestroy{
-  constructor(public handler: TaskHandlerService, private authorization:AuthService) {
-  }
+  constructor(
+    public handler: TaskHandlerService,
+    private authorization:AuthService,
+    private router:Router,
+    private routing:RoutingService
+  ) {}
 
   tasks: Task[]| undefined;
   private unSubGetTasks$: Subject<void> = new Subject();
@@ -35,18 +41,30 @@ export class DashboardComponent implements OnInit,OnDestroy{
   onSubmit(taskDescription: any): void {
     this.handler.addTask(taskDescription).pipe(
       takeUntil(this.unSubOnSubmit$)
-    ).subscribe();
+    ).subscribe(
+      res =>{
+        this.routing.refreshPage()
+      }
+    );
   }
   onDelete(taskID:number){
     this.handler.deleteTask(taskID).pipe(
       takeUntil(this.unSubOnDelete$)
-    ).subscribe();
+    ).subscribe(
+      res =>{
+        this.routing.refreshPage()
+      }
+    );
   }
   onDone(taskId:number) {
     const taskFinishDate="2023-05-28T00:00:00"
     this.handler.finishTask(taskId, taskFinishDate).pipe(
-      takeUntil(this.unSubOnDone$)
-    ).subscribe();
+      takeUntil(this.unSubOnDone$),
+    ).subscribe(
+      res =>{
+        this.routing.refreshPage()
+      }
+    );
   }
   ngOnDestroy(): void {
     this.unSubGetTasks$.next();

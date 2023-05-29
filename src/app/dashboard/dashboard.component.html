@@ -1,16 +1,16 @@
 <table >
   <tr *ngFor="let task of tasks">
     <td>{{task.taskText}}</td>
-    <button type="button" (click)="onDelete(task.taskId)" onClick="window.location.reload(true)">delete</button>
+    <button type="button" (click)="onDelete(task.taskId)" >delete</button>
     <button [routerLink]="['edit-card', task.taskId]" >edit</button>
-    <button (click)="onDone(task.taskId)" onClick="window.location.reload(true)">done</button>
+    <button (click)="onDone(task.taskId)" >done</button>
   </tr>
 
 </table>
 
 <form>
   <input type="text" name="taskDescription" placeholder="your new task" required #taskData>
-  <button type="submit" (click)="onSubmit(taskData.value)" onClick="window.location.reload(true)">add</button>
+  <button type="submit" (click)="onSubmit(taskData.value)">add</button>
 </form>
 
 <router-outlet></router-outlet>
