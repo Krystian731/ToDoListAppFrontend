@@ -2,10 +2,11 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TaskHandlerService} from "../task-handler.service";
 import {Task} from '../jsonFormat';
 import {AuthService} from "../auth.service";
-import {MatTableModule} from '@angular/material/table';
 import {Subject, takeUntil} from "rxjs";
 import {Router} from "@angular/router";
 import {RoutingService} from "../routing.service";
+
+
 
 @Component({
   selector: 'app-dashboard',
