@@ -1,5 +1,7 @@
 <h3>id: {{id}}</h3>
 <form>
-  <input type="text" value="" #newDescription>
-  <input type="submit" (click)="onSubmit(newDescription.value)" >
+  <mat-form-field>
+      <input matInput type="text" #newDescription>
+      <button mat-flat-button color="primary" (click)="onSubmit(newDescription.value)" >submit</button>
+  </mat-form-field>
 </form>

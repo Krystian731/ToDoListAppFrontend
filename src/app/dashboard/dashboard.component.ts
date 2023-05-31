@@ -21,11 +21,12 @@ export class DashboardComponent implements OnInit,OnDestroy{
     private routing:RoutingService
   ) {}
 
-  tasks: Task[]| undefined;
+  tasks: Task[]=[];
   private unSubGetTasks$: Subject<void> = new Subject();
   private unSubOnSubmit$: Subject<void> = new Subject();
   private unSubOnDelete$: Subject<void> = new Subject();
   private unSubOnDone$: Subject<void> = new Subject();
+  columnsToDisplay = ['task','actions'];
 
   ngOnInit() {
     this.onDashboardStart();

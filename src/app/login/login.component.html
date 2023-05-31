@@ -1,12 +1,16 @@
 <h1>Sign up</h1>
 <form>
-  <input type="text" placeholder="username" #username>
-  <input type="submit" (click)="addNewUser(username.value)">
+  <mat-form-field>
+    <input type="text" placeholder="username" #username>
+    <button mat-flat-button color="primary"(click)="addNewUser(username.value)">sign up</button>
+  </mat-form-field>
 </form>
 
 <h1>Sign in </h1>
 <form>
-  <input type="text" placeholder="username" #userData>
-  <input type="submit" (click)="authorize(userData.value)">
+  <mat-form-field>
+    <input type="text" placeholder="username" #userData>
+    <button mat-flat-button color="primary" (click)="authorize(userData.value)">sign in</button>
+  </mat-form-field>
 </form>
 

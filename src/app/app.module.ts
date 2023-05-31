@@ -15,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from "@angular/material/icon";
 import {CookieService} from "ngx-cookie-service";
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatInputModule} from '@angular/material/input';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatIconModule,
     MatTableModule,
     MatSlideToggleModule,
-    MatButtonModule
+    MatButtonModule,
+    MatInputModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

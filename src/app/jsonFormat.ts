@@ -1,9 +1,9 @@
 export interface Task{
   "taskText": string;
   "taskId": number;
-  "taskDate": number[]|undefined;
+  "taskDate": number[]|string|undefined;
   "userId": number;
-  "taskCompletionDate": number[]|undefined;
+  "taskCompletionDate": number[]|string|undefined;
 }
 export interface newTask{
   taskId:number;
