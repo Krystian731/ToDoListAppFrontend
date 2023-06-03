@@ -1,7 +1,9 @@
 <h3>id: {{id}}</h3>
 <form class="flex flex-row items-center justify-evenly p-4">
   <mat-form-field>
-      <input matInput type="text" #newDescription >
+    <mat-label>nowa nazwa twojego zadania</mat-label>
+      <input matInput type="text" [formControl]="taskControl" #newDescription >
+
   </mat-form-field>
 
   <button mat-flat-button color="primary" class="ml-4" (click)="onSubmit(newDescription.value)" >zatwierdz</button>

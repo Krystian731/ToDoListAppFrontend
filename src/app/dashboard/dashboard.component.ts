@@ -6,6 +6,7 @@ import {Subject, takeUntil} from "rxjs";
 import {Router} from "@angular/router";
 import {RoutingService} from "../routing.service";
 import {MatTable} from "@angular/material/table";
+import {FormControl, Validators} from "@angular/forms";
 
 
 @Component({
@@ -40,8 +41,12 @@ export class DashboardComponent implements OnInit,OnDestroy{
     this.authorization.checkIfLoggedIn();
   }
 
-
+  successfulExecution = false;
   onSubmit(taskDescription: any): void {
+    if(this.taskControl.invalid){
+      this.successfulExecution  = false;
+      return;
+    }
     this.handler.addTask(taskDescription).pipe(
       takeUntil(this.unSubOnSubmit$)
     ).subscribe(
@@ -49,6 +54,14 @@ export class DashboardComponent implements OnInit,OnDestroy{
         this.refreshRows()
       }
     );
+    this.taskControl.reset();
+    this.taskControl.setErrors(null);
+    this.taskControl.markAsPristine();
+    this.taskControl.markAsUntouched();
+    this.successfulExecution = true;
+  }
+  showErrorMessages(): boolean {
+    return !this.successfulExecution && (this.taskControl.invalid || this.taskControl.dirty || this.taskControl.touched);
   }
   onDelete(taskID:number){
     this.handler.deleteTask(taskID).pipe(
@@ -83,6 +96,27 @@ export class DashboardComponent implements OnInit,OnDestroy{
 
     this.table.renderRows();
   }
+
+
+  taskControl = new FormControl(
+    '',
+    [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(20)]
+  );
+
+  getErrorMessage() {
+    if (this.taskControl.hasError('required')) {
+      return 'Nazwa zadania nie może być pusta!';
+    }
+    else if(this.taskControl.hasError('minlength')){
+      return 'Nazwa zadanie musi zawierać conajmniej 4 znaki!';
+    }
+
+    return this.taskControl.hasError('maxlength') ? 'Nazwa zadania nie może być dłuższa niż 20 znaków' : '';
+  }
+
   ngOnDestroy(): void {
     this.unSubGetTasks$.next();
     this.unSubGetTasks$.unsubscribe();

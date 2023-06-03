@@ -42,8 +42,10 @@
 
     <section class="">
       <form class="w-full flex justify-evenly ">
-        <mat-form-field class="w-3/4">
-          <input matInput name="taskDescription" placeholder="your new task" required #taskData>
+        <mat-form-field class="w-3/4" hideRequiredMarker>
+          <mat-label>nazwa twojego zadania</mat-label>
+          <input matInput name="taskDescription" placeholder="np. podlać kwiaty" [formControl]="taskControl" #taskData>
+          <mat-error *ngIf="showErrorMessages()">{{getErrorMessage()}}</mat-error>
 
         </mat-form-field>
 

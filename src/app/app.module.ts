@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { EditTaskComponent } from './edit-task/edit-task.component';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -39,6 +39,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
+    ReactiveFormsModule,
 
   ],
   providers: [CookieService, MatTable],
