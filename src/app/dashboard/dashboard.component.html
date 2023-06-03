@@ -1,50 +1,63 @@
-<!--<table >-->
-<!--  <tr *ngFor="let task of tasks">-->
-<!--    <td>{{task.taskText}}</td>-->
-<!--    <button mat-stroked-button color="warn"  (click)="onDelete(task.taskId)" >delete</button>-->
-<!--    <button mat-stroked-button [routerLink]="['edit-card', task.taskId]" >edit</button>-->
-<!--    <button mat-stroked-button color="primary"(click)="onDone(task.taskId)" >done</button>-->
-<!--  </tr>-->
+<nav>
+  <button mat-flat-button color="warn" (click)="onLogout()">
+    <mat-icon>logout</mat-icon>
+  </button>
+</nav>
+<main class="min-w-fit flex flex-col justify-start my-16 items-center h-screen">
+  <section>
+    <section class="min-w-340px">
+      <table mat-table [dataSource]="tasks" class="min-w-340px">
 
-<!--</table>-->
-<table mat-table [dataSource]="tasks">
+        <ng-container matColumnDef="task">
+          <th mat-header-cell *matHeaderCellDef >twoje zadania:</th>
+          <td mat-cell *matCellDef="let task"> {{task.taskText}} </td>
+        </ng-container>
 
-  <ng-container matColumnDef="task">
-    <th mat-header-cell *matHeaderCellDef> task </th>
-    <td mat-cell *matCellDef="let task"> {{task.taskText}} </td>
-  </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let task">
 
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef> buttons </th>
-    <td mat-cell *matCellDef="let task">
+            <div>
+              <button mat-icon-button color="primary" (click)="onDone(task.taskId)">
+                <mat-icon>check</mat-icon>
+              </button>
 
-      <button mat-icon-button color="primary" (click)="onDone(task.taskId)">
-        <mat-icon>check</mat-icon>
-      </button>
+              <button mat-icon-button [routerLink]="['edit-card', task.taskId]">
+                <mat-icon>edit</mat-icon>
+              </button>
 
-      <button mat-icon-button [routerLink]="['edit-card', task.taskId]">
-        <mat-icon>edit</mat-icon>
-      </button>
+              <button mat-icon-button color="warn" (click)="onDelete(task.taskId)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
 
-      <button mat-icon-button color="warn" (click)="onDelete(task.taskId)">
-        <mat-icon>delete</mat-icon>
-      </button>
+          </td>
+        </ng-container>
 
-    </td>
-  </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-  <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
-</table>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+      </table>
+    </section>
 
-<form>
-  <mat-form-field>
-    <input matInput type="text" name="taskDescription" placeholder="your new task" required #taskData>
+    <section class="">
+      <form class="w-full flex justify-evenly ">
+        <mat-form-field class="w-3/4">
+          <input matInput name="taskDescription" placeholder="your new task" required #taskData>
 
-    <button (click)="onSubmit(taskData.value)" color="primary" mat-fab type="submit" aria-label="submit button for adding tasks">
-      <mat-icon>add</mat-icon>
-    </button>
-  </mat-form-field>
-</form>
+        </mat-form-field>
 
-<router-outlet></router-outlet>
+        <button class="pr-0.5" (click)="onSubmit(taskData.value)" color="primary" mat-fab type="submit" aria-label="submit button for adding tasks">
+          <mat-icon>add</mat-icon>
+        </button>
+
+      </form>
+    </section>
+
+    <section class="">
+      <router-outlet></router-outlet>
+    </section>
+
+  </section>
+
+</main>

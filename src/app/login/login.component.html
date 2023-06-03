@@ -1,16 +1,21 @@
 <h1>Sign up</h1>
-<form>
+<form class="flex items-center">
   <mat-form-field>
-    <input type="text" placeholder="username" #username>
-    <button mat-flat-button color="primary"(click)="addNewUser(username.value)">sign up</button>
+    <input matInput type="text" placeholder="username" #username>
+
   </mat-form-field>
+  <button class="ml-6" mat-flat-button color="primary" (click)="addNewUser(username.value)">sign up</button>
+
 </form>
 
 <h1>Sign in </h1>
-<form>
+<form class="flex items-center">
   <mat-form-field>
-    <input type="text" placeholder="username" #userData>
-    <button mat-flat-button color="primary" (click)="authorize(userData.value)">sign in</button>
+    <input  matInput type="text" placeholder="username" #userData>
   </mat-form-field>
+
+  <button  class="ml-6" (click)="authorize(userData.value)" aria-label="submit button for adding tasks" color="primary"
+          mat-flat-button>sign in</button>
+
 </form>
 

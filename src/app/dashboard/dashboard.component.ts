@@ -1,11 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {TaskHandlerService} from "../task-handler.service";
 import {Task} from '../jsonFormat';
 import {AuthService} from "../auth.service";
 import {Subject, takeUntil} from "rxjs";
 import {Router} from "@angular/router";
 import {RoutingService} from "../routing.service";
-
+import {MatTable} from "@angular/material/table";
 
 
 @Component({
@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit,OnDestroy{
     private routing:RoutingService
   ) {}
 
+  @ViewChild(MatTable) table!: MatTable<any>;
   tasks: Task[]=[];
   private unSubGetTasks$: Subject<void> = new Subject();
   private unSubOnSubmit$: Subject<void> = new Subject();
@@ -45,7 +46,7 @@ export class DashboardComponent implements OnInit,OnDestroy{
       takeUntil(this.unSubOnSubmit$)
     ).subscribe(
       res =>{
-        this.routing.refreshPage()
+        this.refreshRows()
       }
     );
   }
@@ -54,7 +55,7 @@ export class DashboardComponent implements OnInit,OnDestroy{
       takeUntil(this.unSubOnDelete$)
     ).subscribe(
       res =>{
-        this.routing.refreshPage()
+        this.refreshRows()
       }
     );
   }
@@ -64,9 +65,23 @@ export class DashboardComponent implements OnInit,OnDestroy{
       takeUntil(this.unSubOnDone$),
     ).subscribe(
       res =>{
-        this.routing.refreshPage()
+        this.refreshRows()
       }
     );
+  }
+
+  onLogout(){
+    this.authorization.deleteCookieUserLoggedIn();
+    this.authorization.deleteCookieUsername();
+    this.routing.refreshPage();
+
+  }
+  refreshRows(): void {
+    this.handler.getTasks().pipe(
+      takeUntil(this.unSubGetTasks$)
+    ).subscribe((data)=>this.tasks=data);
+
+    this.table.renderRows();
   }
   ngOnDestroy(): void {
     this.unSubGetTasks$.next();

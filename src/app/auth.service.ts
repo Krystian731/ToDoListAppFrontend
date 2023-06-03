@@ -45,7 +45,7 @@ export class AuthService {
     this.cookieService.delete('username');
   }
   deleteCookieUserLoggedIn(){
-    this.cookieService.delete('username');
+    this.cookieService.delete('flagIfUserLoggedIn');
   }
 
   setCookieIsLogged(){

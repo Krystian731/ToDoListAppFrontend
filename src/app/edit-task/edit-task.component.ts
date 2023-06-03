@@ -4,6 +4,7 @@ import {OnDestroy} from '@angular/core';
 import {TaskHandlerService} from '../task-handler.service';
 import {Subject, takeUntil} from "rxjs";
 import {RoutingService} from "../routing.service";
+import {DashboardComponent} from "../dashboard/dashboard.component";
 
 @Component({
   selector: 'app-edit-task',
@@ -14,7 +15,8 @@ export class EditTaskComponent implements OnInit,OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private handler:TaskHandlerService,
-    private routing:RoutingService
+    private routing:RoutingService,
+    private dashboard:DashboardComponent
   ){}
 
   id: number = 0;
@@ -37,7 +39,7 @@ export class EditTaskComponent implements OnInit,OnDestroy {
       takeUntil(this.unSubOnSubmit$)
     ).subscribe(
       res =>{
-        this.routing.refreshPage()
+        this.dashboard.refreshRows()
       }
     );
   }

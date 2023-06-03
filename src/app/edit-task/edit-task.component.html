@@ -1,7 +1,8 @@
 <h3>id: {{id}}</h3>
-<form>
+<form class="flex flex-row items-center justify-evenly p-4">
   <mat-form-field>
-      <input matInput type="text" #newDescription>
-      <button mat-flat-button color="primary" (click)="onSubmit(newDescription.value)" >submit</button>
+      <input matInput type="text" #newDescription >
   </mat-form-field>
+
+  <button mat-flat-button color="primary" class="ml-4" (click)="onSubmit(newDescription.value)" >zatwierdz</button>
 </form>
