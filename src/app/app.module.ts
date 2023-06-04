@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { EditTaskComponent } from './edit-task/edit-task.component';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTable, MatTableModule} from '@angular/material/table';
@@ -19,6 +18,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {UsersHandlerService} from "./users-handler.service";
 import {MatMenuModule} from '@angular/material/menu';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 
@@ -26,7 +26,6 @@ import {MatMenuModule} from '@angular/material/menu';
   declarations: [
     AppComponent,
     DashboardComponent,
-    EditTaskComponent,
     LoginComponent
   ],
   imports: [
@@ -42,7 +41,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule
 
   ],
   providers: [CookieService, MatTable, UsersHandlerService],
