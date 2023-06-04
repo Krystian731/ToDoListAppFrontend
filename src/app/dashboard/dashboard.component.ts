@@ -1,10 +1,10 @@
 import {Component, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {TaskHandlerService} from "../task-handler.service";
+import {TaskHandlerService} from "../services/task-handler.service";
 import {Task} from '../jsonFormat';
-import {AuthService} from "../auth.service";
+import {AuthService} from "../services/auth.service";
 import {Subject, takeUntil} from "rxjs";
 import {Router} from "@angular/router";
-import {RoutingService} from "../routing.service";
+import {RoutingService} from "../services/routing.service";
 import {MatTable} from "@angular/material/table";
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
@@ -40,10 +40,6 @@ export class DashboardComponent implements OnInit,OnDestroy{
   private unSubOnDone$: Subject<void> = new Subject();
   columnsToDisplay = ['task','actions'];
 
-  id: number = 0;
-
-
-
   ngOnInit() {
     this.onDashboardStart();
   }
@@ -56,22 +52,21 @@ export class DashboardComponent implements OnInit,OnDestroy{
     this.authorization.checkIfLoggedIn();
   }
 
-  onSubmit(taskDescription: any): void {
+  onSubmitAddTask(taskDescription: any): void {
     if(this.taskControl.invalid){
       return;
     }
     this.taskHandler.addTask(taskDescription).pipe(
       takeUntil(this.unSubOnSubmit$)
     ).subscribe(
-      res =>{
+      () =>{
         this.refreshRows()
-        this.taskControl.reset()
+        //this.taskControl.reset()
         //this.taskControl.markAsTouched();
         //this.taskControl.reset()
-
-        this.taskControl.markAsPristine();
-        this.taskControl.markAsUntouched();
-        this.taskControl.setErrors(null);
+        //this.taskControl.markAsPristine();
+        //this.taskControl.markAsUntouched();
+        //this.taskControl.setErrors(null);
       }
     );
   }
@@ -80,7 +75,7 @@ export class DashboardComponent implements OnInit,OnDestroy{
     this.taskHandler.deleteTask(taskID).pipe(
       takeUntil(this.unSubOnDelete$)
     ).subscribe(
-      res =>{
+      () => {
         this.refreshRows()
       }
     );
@@ -90,7 +85,7 @@ export class DashboardComponent implements OnInit,OnDestroy{
     this.taskHandler.finishTask(taskId, taskFinishDate).pipe(
       takeUntil(this.unSubOnDone$),
     ).subscribe(
-      res =>{
+      () =>{
         this.refreshRows()
       }
     );
@@ -121,49 +116,15 @@ export class DashboardComponent implements OnInit,OnDestroy{
       asyncValidators:[],
       updateOn: 'blur'
     }
-
   );
 
-  // onEdit(taskId:number,taskNewText:string){
-  //   if(this.taskEditControl.invalid){
-  //     console.log('valdator!');
-  //     return;
-  //   }
-  //   this.taskHandler.updateTask(taskId,taskNewText).pipe(
-  //     takeUntil(this.unSubOnEdit$)
-  //   ).subscribe(
-  //     res =>{
-  //       console.log('subscribe wykonane!');
-  //       this.refreshRows();
-  //     }
-  //   );
-  //
-  //   this.taskEditControl.reset();
-  //   this.taskEditControl.setErrors(null);
-  //   this.taskEditControl.markAsPristine();
-  //   this.taskEditControl.markAsUntouched();
-  // }
-
-  // onEdit(taskId:number,taskNewText:string){
-  //     this.taskHandler.updateTask(taskId,taskNewText).pipe(
-  //       takeUntil(this.unSubOnEdit$)
-  //     ).subscribe(
-  //       res =>{
-  //         console.log('subscribe wykonane!');
-  //         this.refreshRows();
-  //       }
-  //     );
-  //   }
-
-
-  getErrorMessage() {
+  getErrorMessageSubmitTask() {
     if (this.taskControl.hasError('required')) {
       return 'Nazwa zadania nie może być pusta!';
     }
     else if(this.taskControl.hasError('minlength')){
       return 'Nazwa zadanie musi zawierać conajmniej 4 znaki!';
     }
-
     return this.taskControl.hasError('maxlength') ? 'Nazwa zadania nie może być dłuższa niż 20 znaków' : '';
   }
 
@@ -191,13 +152,10 @@ export class DashboardComponent implements OnInit,OnDestroy{
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-      //this.onEdit(taskId,result);
-      // tutaj musze dac te dane z dialogu a nie te initail, to znaczy inital taskid
-      // dobra zoabczmy ile rzeczy nie dziala
       this.taskHandler.updateTask(taskId,result).pipe(
             //takeUntil(this.unSubOnEdit$)
           ).subscribe(
-            res =>{
+        () => {
               console.log('subscribe wykonane!');
               this.refreshRows();
             }
@@ -206,13 +164,13 @@ export class DashboardComponent implements OnInit,OnDestroy{
   }
 }
 
-
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: '../templates/edit-tab-dialog.html',
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule],
 })
+
 export class DialogOverviewExampleDialog {
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,

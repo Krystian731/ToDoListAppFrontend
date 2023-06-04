@@ -31,36 +31,27 @@
               </button>
 
             </div>
-
           </td>
         </ng-container>
-
 
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
         <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
       </table>
     </section>
 
-    <section class="">
+    <section>
       <form class="w-full flex justify-evenly ">
         <mat-form-field class="w-3/4" hideRequiredMarker>
           <mat-label>nazwa twojego zadania</mat-label>
-          <input matInput name="taskDescription" placeholder="np. podlać kwiaty" [formControl]="taskControl" #taskData>
-          <mat-error *ngIf="taskControl.invalid">{{getErrorMessage()}}</mat-error>
-
+            <input matInput name="taskDescription" placeholder="np. podlać kwiaty" [formControl]="taskControl" #taskData>
+            <mat-error *ngIf="taskControl.invalid">{{getErrorMessageSubmitTask()}}</mat-error>
         </mat-form-field>
 
-        <button class="pr-0.5" (click)="onSubmit(taskData.value)" color="primary" mat-fab type="submit" aria-label="submit button for adding tasks">
+        <button class="pr-0.5" (click)="onSubmitAddTask(taskData.value)" color="primary" mat-fab type="submit" aria-label="submit button for adding tasks">
           <mat-icon>add</mat-icon>
         </button>
 
       </form>
     </section>
-
-<!--    <section class="">-->
-<!--      <router-outlet></router-outlet>-->
-<!--    </section>-->
-
   </section>
-
 </main>

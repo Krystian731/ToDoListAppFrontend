@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {UsersHandlerService} from "../users-handler.service";
+import {UsersHandlerService} from "../services/users-handler.service";
 import {AbstractControl, AsyncValidator, ValidationErrors} from "@angular/forms";
 import {map, Observable, of} from "rxjs";
 import {catchError} from "rxjs/operators";
@@ -17,7 +17,6 @@ export class SignInValidateService implements AsyncValidator{
       catchError(() => of(null))
     );
   }
-
 
 }
 

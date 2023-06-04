@@ -16,7 +16,7 @@ import {CookieService} from "ngx-cookie-service";
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from "@angular/material/form-field";
-import {UsersHandlerService} from "./users-handler.service";
+import {UsersHandlerService} from "./services/users-handler.service";
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDialogModule} from '@angular/material/dialog';
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { catchError, retry } from 'rxjs/operators';
-import {Task} from './jsonFormat';
+import {Task} from '../jsonFormat';
 import {ErrorHandlerService} from "./error-handler.service";
 
 @Injectable({
