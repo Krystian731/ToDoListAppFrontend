@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {catchError, retry} from "rxjs/operators";
 import {ErrorHandlerService} from "./error-handler.service";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +20,11 @@ export class UsersHandlerService {
       catchError(this.errorhandler.handleError)
     );
   }
-  authenticate(username:string){
+  authenticate(username:string):Observable<boolean>{
     const authorizationUrl:string = "http://localhost:8080/login/" + username;
-    return this.http.get(authorizationUrl).pipe(
-      catchError(this.errorhandler.handleError)
+    //console.log("pojawilo sie wywolanie authenticate: URL =>"+authorizationUrl)
+    return this.http.get<boolean>(authorizationUrl).pipe(
+      //catchError(this.errorhandler.handleError)
     );
   }
 

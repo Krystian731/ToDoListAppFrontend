@@ -2,8 +2,10 @@ import {Component, DoCheck, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {UsersHandlerService} from "../users-handler.service";
 import {AuthService} from "../auth.service";
-import {Subject, takeUntil} from "rxjs";
-import {FormControl, Validators} from "@angular/forms";
+import {map, Observable, Subject, switchMap, takeUntil, timer} from "rxjs";
+import {AbstractControl, AsyncValidatorFn, FormControl, ValidationErrors, Validators} from "@angular/forms";
+import {SignUpValidateService} from "../validators/sign-up-validate.service";
+import {SignInValidateService} from "../validators/sign-in-validate.service";
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,9 @@ export class LoginComponent implements DoCheck, OnInit,OnDestroy{
   constructor(
     private http:HttpClient,
     private userHandler:UsersHandlerService,
-    private authorization:AuthService
+    private authorization:AuthService,
+    private signUpValidate:SignUpValidateService,
+    private signInValidate:SignInValidateService
   ){}
   ngOnInit() {
     this.authorization.checkIfLoggedInLoginPage();
@@ -55,22 +59,24 @@ export class LoginComponent implements DoCheck, OnInit,OnDestroy{
     );
   }
   signUpControl = new FormControl(
-    '',
-    [
-      Validators.required,
+    '', {
+      validators:[
+        Validators.required,
       Validators.minLength(4),
-      Validators.maxLength(20)]
-  );
+      Validators.maxLength(20)],
+      asyncValidators: [ this.signUpValidate.validate.bind(this.signUpValidate)],
+      updateOn: 'blur'});
 
   signInControl = new FormControl(
-    '',
-    [
-      Validators.required,
-      ]
+    '', {
+      validators:[Validators.required,],
+      asyncValidators:[this.signInValidate.validate.bind(this.signInValidate)],
+      updateOn:'blur'
+}
   );
 
 
-  getErrorMessage() {
+  getErrorMessageSignUp() {
     if (this.signUpControl.hasError('required')) {
       return 'Nazwa użytkownika nie może być pusta!';
     }
@@ -82,18 +88,27 @@ export class LoginComponent implements DoCheck, OnInit,OnDestroy{
         return 'Nazwa zadania nie może być dłuższa niż 20 znaków';
     }
 
-    else if(this.signInControl.hasError('required'))
+    return this.signUpControl.hasError('usernameTaken') ? 'Użytkownik już istnieje' : '';
+
+  }
+
+  getErrorMessageSignIn(){
+
+    if(this.signInControl.hasError('required'))
     {
       return 'Nazwa użytkownika nie może być pusta!';
     }
+    if(this.signInControl.hasError('userNotExists'))
+    {
+      return 'Złe dane logowania';
+    }
 
-    else return 'coś poszło nie tak';
-
+    return '';
   }
 
-  getErrorSignInMessage(){
-    return 'niepoprawne dane logowania';
-  }
+
+
+
   ngOnDestroy() {
     this.unSubAuthorize$.next();
     this.unSubAuthorize$.unsubscribe();
@@ -101,4 +116,35 @@ export class LoginComponent implements DoCheck, OnInit,OnDestroy{
     this.unSubAddNewUser$.next();
     this.unSubAddNewUser$.unsubscribe();
   }
+
+  // checkUsernameAvailability(http: HttpClient): AsyncValidatorFn {
+  //   return (control: AbstractControl): Observable<ValidationErrors | null> => {
+  //     const username = control.value;
+  //     return http.get<boolean>(`your_api_endpoint/check-username/${username}`).pipe(
+  //       map(isAvailable => (isAvailable ? null : { usernameTaken: true }))
+  //     );
+  //   };
+  // }
+  // checkUserArleadyExists(http: HttpClient): AsyncValidatorFn {
+  //   return (control: AbstractControl): Observable<ValidationErrors | null> => {
+  //     const username = control.value;
+  //     console.log("w checkusersalredyexists ");
+  //     return this.userHandler.authenticate(username).pipe(
+  //       map(exists => (exists ? { usernameTaken: true} : null ))
+  //     );
+  //   };
+  // }
+
+  // checkUserArleadyExists(http: HttpClient): AsyncValidatorFn {
+  //   return (control: AbstractControl): Observable<ValidationErrors | null> => {
+  //     const username = control.value;
+  //     const username2='krystiano'
+  //     console.log(`http://localhost:8080/login/${username}`);
+  //     return http.get<boolean>(`http://localhost:8080/login/${username2}`).pipe(
+  //       map(exists => (exists ? { usernameTaken: true } : null ))
+  //     );
+  //   };// 1. usatwic na sztywno nazwe, 2. usunac inne validatory
+  //   //nic nie działa. w takim razie sproboje zobaczy jak zroibli to fachowncy od angulara
+  // }
+
 }

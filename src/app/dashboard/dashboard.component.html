@@ -22,13 +22,14 @@
                 <mat-icon>check</mat-icon>
               </button>
 
-              <button mat-icon-button [routerLink]="['edit-card', task.taskId]">
+              <button mat-icon-button  [routerLink]="['edit-card', task.taskId]">
                 <mat-icon>edit</mat-icon>
               </button>
 
               <button mat-icon-button color="warn" (click)="onDelete(task.taskId)">
                 <mat-icon>delete</mat-icon>
               </button>
+
             </div>
 
           </td>
@@ -45,7 +46,7 @@
         <mat-form-field class="w-3/4" hideRequiredMarker>
           <mat-label>nazwa twojego zadania</mat-label>
           <input matInput name="taskDescription" placeholder="np. podlać kwiaty" [formControl]="taskControl" #taskData>
-          <mat-error *ngIf="showErrorMessages()">{{getErrorMessage()}}</mat-error>
+          <mat-error *ngIf="taskControl.invalid">{{getErrorMessage()}}</mat-error>
 
         </mat-form-field>
 

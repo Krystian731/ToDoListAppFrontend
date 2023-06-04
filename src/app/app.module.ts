@@ -17,6 +17,8 @@ import {CookieService} from "ngx-cookie-service";
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {UsersHandlerService} from "./users-handler.service";
+import {MatMenuModule} from '@angular/material/menu';
 
 
 
@@ -40,9 +42,10 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    MatMenuModule
 
   ],
-  providers: [CookieService, MatTable],
+  providers: [CookieService, MatTable, UsersHandlerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

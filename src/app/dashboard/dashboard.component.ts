@@ -33,6 +33,12 @@ export class DashboardComponent implements OnInit,OnDestroy{
   ngOnInit() {
     this.onDashboardStart();
   }
+  isEditSectionVisible = false;
+  editSectionVisibleNumber:number =0;
+  toggleSection(taskId:number) {
+    this.isEditSectionVisible = !this.isEditSectionVisible;
+    this.editSectionVisibleNumber=taskId;
+  }
   onDashboardStart(){
     this.handler.getTasks().pipe(
       takeUntil(this.unSubGetTasks$)
@@ -52,17 +58,25 @@ export class DashboardComponent implements OnInit,OnDestroy{
     ).subscribe(
       res =>{
         this.refreshRows()
+        this.taskControl.reset()
+        //this.taskControl.markAsTouched();
+        //this.taskControl.reset()
+
+        this.taskControl.markAsPristine();
+        this.taskControl.markAsUntouched();
+        this.taskControl.setErrors(null);
       }
     );
-    this.taskControl.reset();
-    this.taskControl.setErrors(null);
-    this.taskControl.markAsPristine();
-    this.taskControl.markAsUntouched();
-    this.successfulExecution = true;
+    //this.taskControl.reset();
+    //
+
+    // this.successfulExecution = true;
+
+    //TODO reapir this part. It is hard to reset input value after submit() bcs it gives errors in input.
+    //TODO posible options are to delete reseting value and let it stay as it is, or play more with input control methods.
+    //TODO I have idea to set it onfocus rather then untachted after submit()
   }
-  showErrorMessages(): boolean {
-    return !this.successfulExecution && (this.taskControl.invalid || this.taskControl.dirty || this.taskControl.touched);
-  }
+
   onDelete(taskID:number){
     this.handler.deleteTask(taskID).pipe(
       takeUntil(this.unSubOnDelete$)
@@ -99,11 +113,15 @@ export class DashboardComponent implements OnInit,OnDestroy{
 
 
   taskControl = new FormControl(
-    '',
-    [
-      Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(20)]
+    '',{
+      validators:[
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(20)],
+      asyncValidators:[],
+      updateOn: 'blur'
+    }
+
   );
 
   getErrorMessage() {
