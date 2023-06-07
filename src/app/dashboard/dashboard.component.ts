@@ -11,6 +11,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from "@angula
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
+import {EditDialogComponent} from "../edit-dialog/edit-dialog.component";
 
 export interface DialogData {
   taskId: number;
@@ -56,7 +57,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private authorization: AuthService,
     private router: Router,
     private routing: RoutingService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+
   ) {}
 
   onDashboardStart() {
@@ -117,7 +119,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   openEditDialog(taskId: number, taskText: string): void {
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+    const dialogRef = this.dialog.open(EditDialogComponent, {
       data: {taskId: taskId, taskText: taskText},
     });
 
@@ -127,7 +129,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
             //takeUntil(this.unSubOnEdit$)
           ).subscribe(
         () => {
-              this.refreshRows();
+              //TODO make it works
+              //this.refreshRows();
             }
           );
     });
@@ -150,25 +153,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     this.unSubOnEdit$.next();
     this.unSubOnEdit$.unsubscribe();
-  }
-
-}
-
-@Component({
-  selector: 'dialog-overview-example-dialog',
-  templateUrl: '../templates/edit-tab-dialog.html',
-  standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule],
-})
-
-export class DialogOverviewExampleDialog {
-  constructor(
-    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-  ) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
   }
 
 }

@@ -20,6 +20,7 @@ import {UsersHandlerService} from "./services/users-handler.service";
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDialogModule} from '@angular/material/dialog';
 import {GetErrorMessTask,GetErrorMessUser} from "./pipes/getErrorMess";
+import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 
 
 
@@ -30,7 +31,8 @@ import {GetErrorMessTask,GetErrorMessUser} from "./pipes/getErrorMess";
     DashboardComponent,
     LoginComponent,
     GetErrorMessTask,
-    GetErrorMessUser
+    GetErrorMessUser,
+    EditDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,6 @@ import {GetErrorMessTask,GetErrorMessUser} from "./pipes/getErrorMess";
     ReactiveFormsModule,
     MatMenuModule,
     MatDialogModule,
-
 
   ],
   providers: [CookieService, MatTable, UsersHandlerService],
