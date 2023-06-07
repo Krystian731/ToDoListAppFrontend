@@ -28,4 +28,13 @@ export class UsersHandlerService {
     );
   }
 
+  /**
+   * TODO:
+   *
+   */
+
+  // authUser(username: string): Observable<boolean> {
+  //   return this.http.get<boolean>(`${apiUrl}login/${username}`);
+  // }
+
 }

@@ -4,7 +4,9 @@
       <form class=" mt-6 flex flex-col justify-center items-center" >
         <mat-form-field>
           <input matInput type="text" placeholder="nazwa użytkownika" [formControl]="signUpControl" #username>
-          <mat-error *ngIf="signUpControl.invalid">{{getErrorMessageSignUp()}}</mat-error>
+<!--          <mat-error *ngIf="signUpControl.invalid">{{getErrorMessageSignUp()}}</mat-error>-->
+          <mat-error *ngIf="signUpControl.invalid">{{signUpControl.errors | getErrorMessUser}} </mat-error>
+
 
         </mat-form-field>
         <button class="mt-6" mat-flat-button color="primary" (click)="addNewUser(username.value)" >zarejestruj</button>
@@ -17,7 +19,10 @@
     <form class=" mt-6 flex flex-col justify-center items-center">
       <mat-form-field>
         <input  matInput type="text" placeholder="nazwa użytkownika" [formControl]="signInControl" #userData>
-        <mat-error *ngIf="signInControl.invalid">{{getErrorMessageSignIn()}}</mat-error>
+
+          <mat-error *ngIf="signInControl.invalid">{{signInControl.errors | getErrorMessUser}}</mat-error>
+
+
       </mat-form-field>
 
       <button  class="mt-6" (click)="authorize(userData.value)" aria-label="submit button for adding tasks" color="primary"

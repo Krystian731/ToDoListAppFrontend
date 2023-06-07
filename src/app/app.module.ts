@@ -19,6 +19,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {UsersHandlerService} from "./services/users-handler.service";
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDialogModule} from '@angular/material/dialog';
+import {GetErrorMessTask,GetErrorMessUser} from "./pipes/getErrorMess";
+
 
 
 
@@ -26,7 +28,9 @@ import {MatDialogModule} from '@angular/material/dialog';
   declarations: [
     AppComponent,
     DashboardComponent,
-    LoginComponent
+    LoginComponent,
+    GetErrorMessTask,
+    GetErrorMessUser
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatMenuModule,
-    MatDialogModule
+    MatDialogModule,
+
 
   ],
   providers: [CookieService, MatTable, UsersHandlerService],

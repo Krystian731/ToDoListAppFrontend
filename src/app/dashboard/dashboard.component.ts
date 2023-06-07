@@ -12,6 +12,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 
+
 export interface DialogData {
   taskId: number;
   taskText: string;
@@ -61,12 +62,12 @@ export class DashboardComponent implements OnInit,OnDestroy{
     ).subscribe(
       () =>{
         this.refreshRows()
-        //this.taskControl.reset()
+        this.taskControl.reset()
         //this.taskControl.markAsTouched();
         //this.taskControl.reset()
         //this.taskControl.markAsPristine();
         //this.taskControl.markAsUntouched();
-        //this.taskControl.setErrors(null);
+        this.taskControl.setErrors(null);
       }
     );
   }
@@ -102,7 +103,7 @@ export class DashboardComponent implements OnInit,OnDestroy{
       //takeUntil(this.unSubGetTasks$)
     ).subscribe((data)=> {
       this.tasks = data
-      //this.table.renderRows();
+      this.table.renderRows();
     });
 
   }
@@ -113,8 +114,7 @@ export class DashboardComponent implements OnInit,OnDestroy{
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(20)],
-      asyncValidators:[],
-      updateOn: 'blur'
+      asyncValidators:[]
     }
   );
 

@@ -7,12 +7,34 @@ import {AbstractControl, AsyncValidatorFn, FormControl, ValidationErrors, Valida
 import {SignUpValidateService} from "../validators/sign-up-validate.service";
 import {SignInValidateService} from "../validators/sign-in-validate.service";
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements DoCheck, OnInit,OnDestroy{
+
+  public errorObjectFirstKey:string='maxlength';
+  private properUsernameFlag: any;
+  private username:string="";
+  private unsub$: Subject<void>= new Subject();
+  signUpControl = new FormControl(
+    '', {
+      validators:[
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(20)],
+      asyncValidators: [ this.signUpValidate.validate.bind(this.signUpValidate)],
+      updateOn: 'blur'});
+
+  signInControl = new FormControl(
+    '', {
+      validators:[Validators.required,],
+      asyncValidators:[this.signInValidate.validate.bind(this.signInValidate)],
+      updateOn:'blur'
+    }
+  );
 
   constructor(
     private http:HttpClient,
@@ -31,26 +53,23 @@ export class LoginComponent implements DoCheck, OnInit,OnDestroy{
     }
   }
 
-  private properUsernameFlag:any;
-  private username:string="";
-  private unSubAddNewUser$: Subject<void> = new Subject();
-  private unSubAuthorize$: Subject<void> = new Subject();
-
-
   addNewUser(userName:string){
     if(this.signUpControl.invalid){
       return;
     }
+
   this.userHandler.addNewUser(userName).pipe(
-    takeUntil(this.unSubAddNewUser$)
+    takeUntil(this.unsub$)
   ).subscribe();
   }
+
   authorize(username:string){
     if(this.signInControl.invalid){
       return;
     }
+
     this.userHandler.authenticate(username).pipe(
-      takeUntil(this.unSubAuthorize$)
+      takeUntil(this.unsub$)
     ).subscribe(
       (result)=> {
         this.properUsernameFlag = result;
@@ -58,22 +77,6 @@ export class LoginComponent implements DoCheck, OnInit,OnDestroy{
       }
     );
   }
-  signUpControl = new FormControl(
-    '', {
-      validators:[
-        Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(20)],
-      asyncValidators: [ this.signUpValidate.validate.bind(this.signUpValidate)],
-      updateOn: 'blur'});
-
-  signInControl = new FormControl(
-    '', {
-      validators:[Validators.required,],
-      asyncValidators:[this.signInValidate.validate.bind(this.signInValidate)],
-      updateOn:'blur'
-}
-  );
 
   getErrorMessageSignUp() {
     if (this.signUpControl.hasError('required')) {
@@ -106,11 +109,8 @@ export class LoginComponent implements DoCheck, OnInit,OnDestroy{
   }
 
   ngOnDestroy() {
-    this.unSubAuthorize$.next();
-    this.unSubAuthorize$.unsubscribe();
-
-    this.unSubAddNewUser$.next();
-    this.unSubAddNewUser$.unsubscribe();
+    this.unsub$.next();
+    this.unsub$.complete();
   }
 
 }
