@@ -8,10 +8,12 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class UsersHandlerService {
-  constructor(private http:HttpClient, private errorhandler:ErrorHandlerService) { }
-  addNewUser(userName:string){
-    const body= {
-      userId:0,
+
+  constructor(private http: HttpClient, private errorhandler: ErrorHandlerService) { }
+
+  addNewUser(userName:string) {
+    const body = {
+      userId: 0,
       username: userName
     }
     const addUserUrl = "http://localhost:8080/users/save";
@@ -20,18 +22,14 @@ export class UsersHandlerService {
       catchError(this.errorhandler.handleError)
     );
   }
-  authenticate(username:string):Observable<boolean>{
-    const authorizationUrl:string = "http://localhost:8080/login/" + username;
-    //console.log("pojawilo sie wywolanie authenticate: URL =>"+authorizationUrl)
+
+  authenticate(username: string):Observable<boolean>{
+    const authorizationUrl: string = "http://localhost:8080/login/" + username;
     return this.http.get<boolean>(authorizationUrl).pipe(
-      //catchError(this.errorhandler.handleError)
     );
   }
 
-  /**
-   * TODO:
-   *
-   */
+
 
   // authUser(username: string): Observable<boolean> {
   //   return this.http.get<boolean>(`${apiUrl}login/${username}`);

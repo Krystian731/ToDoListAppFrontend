@@ -6,10 +6,10 @@ import {throwError} from "rxjs";
   providedIn: 'root'
 })
 export class ErrorHandlerService {
-
+  constructor() { }
   public handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
-      console.log('error status ='+error.error+' br '+ error.status);
+      console.log('error status = '+error.error+' br '+ error.status);
       console.error('An error occurred:', error.error);
 
     }
@@ -20,5 +20,5 @@ export class ErrorHandlerService {
     }
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
-  constructor() { }
+
 }

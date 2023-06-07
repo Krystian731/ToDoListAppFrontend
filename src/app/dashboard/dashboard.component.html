@@ -40,14 +40,14 @@
     </section>
 
     <section>
-      <form class="w-full flex justify-evenly " (keyup.enter)="onSubmitAddTask(taskData.value)">
-        <mat-form-field class="w-3/4" hideRequiredMarker>
+      <form class="w-full flex justify-evenly">
+        <mat-form-field class=" w-3/4 " hideRequiredMarker>
           <mat-label>nazwa twojego zadania</mat-label>
-            <input matInput name="taskDescription" placeholder="np. podlać kwiaty" [formControl]="taskControl" (keyup.enter)="onSubmitAddTask(taskData.value)" #taskData>
+            <input matInput name="taskDescription" placeholder="np. podlać kwiaty" [formControl]="taskControl" #taskData>
             <mat-error *ngIf="taskControl.invalid">{{taskControl.errors | getErrorMessTask}}</mat-error>
         </mat-form-field>
 
-        <button class="pr-0.5" type="submit" (click)="onSubmitAddTask(taskData.value)" color="primary" mat-fab type="submit" aria-label="submit button for adding tasks">
+        <button class="pr-0.5" (click)="onSubmitAddTask(taskData.value)" color="primary" mat-fab aria-label="submit button for adding tasks">
           <mat-icon>add</mat-icon>
         </button>
 

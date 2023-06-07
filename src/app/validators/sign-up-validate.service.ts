@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {AbstractControl, AsyncValidator, ValidationErrors} from "@angular/forms";
-import {UsersHandlerService} from "../services/users-handler.service";
 import {Observable, of} from "rxjs";
 import {catchError, map} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
@@ -11,7 +10,6 @@ import {HttpClient} from "@angular/common/http";
 })
 export class SignUpValidateService implements AsyncValidator{
   constructor(private http:HttpClient) { }
-//const authorizationUrl:string = "http://localhost:8080/login/" + username;
   validate(
     control: AbstractControl
   ): Observable<ValidationErrors | null> {

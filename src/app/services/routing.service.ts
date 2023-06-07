@@ -6,7 +6,8 @@ import {Router} from "@angular/router";
 })
 export class RoutingService {
 
-  constructor(private router:Router) { }
+  constructor(private router: Router) { }
+
   refreshPage(): void {
     const currentUrl = this.router.url;
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {

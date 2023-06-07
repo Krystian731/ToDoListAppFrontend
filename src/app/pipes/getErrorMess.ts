@@ -5,7 +5,7 @@ import {errorsTask,errorsUser} from "../shared/errors";
 @Pipe({ name: 'getErrorMessUser' })
 export class GetErrorMessUser implements PipeTransform {
   private errors = errorsUser;
-  transform(errorsList: any): any {
+  transform(errorsList: object): string {
     const firstKey = Object.keys(errorsList)[0];
     return this.errors[firstKey];
   }
@@ -14,7 +14,7 @@ export class GetErrorMessUser implements PipeTransform {
 @Pipe({ name: 'getErrorMessTask' })
 export class GetErrorMessTask implements PipeTransform {
   private errors = errorsTask;
-  transform(errorsList: any): any {
+  transform(errorsList: object): string {
     const firstKey = Object.keys(errorsList)[0];
     return this.errors[firstKey];
   }
