@@ -13,24 +13,23 @@ export class TaskHandlerService {
 constructor(private http: HttpClient, private errorhandler: ErrorHandlerService) {
 }
 
-  getTasks() {
+  getTasks():Observable<Task[]> {
     const tasksUrl = "http://localhost:8080/tasks/";
-    const userId : number  = 2;
+    const userId: number  = 2;
      return this.http.get<Task[]>(tasksUrl + userId).pipe(
        retry(3),
        catchError(this.errorhandler.handleError)
      );
   }
 
-  updateTask(taskId: number, taskNewText: string){
-    const userId = 2;
+  updateTask(taskId: number, taskNewText: string):Observable<unknown> {
     const tasksUrl = "http://localhost:8080/tasks/" + taskId + "/updateText?text=" + taskNewText;
-    return this.http.patch<Task>(tasksUrl,"").pipe(
+    return this.http.patch(tasksUrl,"").pipe(
      catchError(this.errorhandler.handleError)
     );
   }
 
-  addTask(description: string) {
+  addTask(description: string): Observable<unknown> {
     const taskUrl = 'http://localhost:8080/tasks';
     const body = {
       taskId: 0,
@@ -45,15 +44,15 @@ constructor(private http: HttpClient, private errorhandler: ErrorHandlerService)
     );
   }
 
-  deleteTask(taskId:number) {
+  deleteTask(taskId:number): Observable<boolean> {
     const userId = 2;
     const taskDeleteUrl = 'http://localhost:8080/tasks/'+ userId + '/' + taskId;
-    return this.http.delete(taskDeleteUrl).pipe(
+    return this.http.delete<boolean>(taskDeleteUrl).pipe(
       catchError(this.errorhandler.handleError)
     );
   }
 
-  finishTask(taskId: number, taskFinishDate: string){
+  finishTask(taskId: number, taskFinishDate: string): Observable<unknown> {
     const taskFinishUrl = 'http://localhost:8080/tasks/' + taskId + '/taskCompleted?taskCompletionDate=' + taskFinishDate;
     return this.http.patch(taskFinishUrl,"").pipe(
       catchError(this.errorhandler.handleError)
