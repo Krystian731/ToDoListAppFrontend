@@ -7,11 +7,9 @@ import {catchError} from "rxjs/operators";
 @Injectable({
   providedIn: 'root'
 })
-export class SignInValidateService implements AsyncValidator{
+export class UserExistingValidator implements AsyncValidator {
   constructor(private userHandler:UsersHandlerService) { }
-  validate(
-    control: AbstractControl
-  ): Observable<ValidationErrors | null> {
+  validate( control: AbstractControl): Observable<ValidationErrors | null> {
     return this.userHandler.authenticate(control.value).pipe(
       map(exists => (exists ? null : { userNotExists: true })),
       catchError(() => of(null))

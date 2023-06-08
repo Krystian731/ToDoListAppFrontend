@@ -6,7 +6,7 @@ import {CookieService} from 'ngx-cookie-service';
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private router: Router,private cookieService: CookieService) { }
+  constructor(private router: Router, private cookieService: CookieService) { }
 
   handleUserProperlyLogged(username: string) {
     this.setCookieIsLogged();

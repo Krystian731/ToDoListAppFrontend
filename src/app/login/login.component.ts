@@ -3,9 +3,9 @@ import {HttpClient} from "@angular/common/http";
 import {UsersHandlerService} from "../services/users-handler.service";
 import {AuthService} from "../services/auth.service";
 import {Subject, takeUntil} from "rxjs";
-import {FormControl, Validators} from "@angular/forms";
-import {SignUpValidateService} from "../validators/sign-up-validate.service";
-import {SignInValidateService} from "../validators/sign-in-validate.service";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {UserNotExistingValidator} from "../validators/user-not-existing.validator";
+import {UserExistingValidator} from "../validators/user-existing.validator";
 
 @Component({
   selector: 'app-login',
@@ -15,33 +15,35 @@ import {SignInValidateService} from "../validators/sign-in-validate.service";
 export class LoginComponent implements DoCheck, OnInit,OnDestroy {
   private properUsernameFlag!: boolean;
   private username: string = '';
-  private unsub$: Subject<void> = new Subject();
 
-  signUpControl = new FormControl(
-    '', {
+  signUpForm: FormGroup = new FormGroup({
+    username: new FormControl('', {
       validators:[
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(20)],
       asyncValidators: [ this.signUpValidate.validate.bind(this.signUpValidate)],
-      updateOn: 'blur' });
+      updateOn: 'submit' })
+  });
 
-  signInControl = new FormControl(
-    '', {
-      validators:[Validators.required,],
-      asyncValidators:[this.signInValidate.validate.bind(this.signInValidate)],
-      updateOn:'blur' });
+  signInForm: FormGroup = new FormGroup({
+    username: new FormControl('', {
+      validators: [Validators.required, Validators.maxLength(20)],
+      asyncValidators: [this.signInValidate.validate.bind(this.signInValidate)],
+      updateOn: 'submit'})
+  });
+  private unsub$: Subject<void> = new Subject();
 
   constructor(
     private http: HttpClient,
     private userHandler: UsersHandlerService,
     private authorization: AuthService,
-    private signUpValidate: SignUpValidateService,
-    private signInValidate: SignInValidateService
+    private signUpValidate: UserNotExistingValidator,
+    private signInValidate: UserExistingValidator
   ) { }
 
   addNewUser(userName: string) {
-    if(this.signUpControl.invalid){
+    if(this.signUpForm.invalid){
       return;
     }
 
@@ -51,7 +53,7 @@ export class LoginComponent implements DoCheck, OnInit,OnDestroy {
   }
 
   authorize(username: string) {
-    if(this.signInControl.invalid) {
+    if(this.signInForm.invalid) {
       return;
     }
     this.userHandler.authenticate(username).pipe(

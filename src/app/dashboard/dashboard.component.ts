@@ -1,17 +1,16 @@
-import {Component, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {TaskHandlerService} from "../services/task-handler.service";
-import {Task} from '../jsonFormat';
+import {Task} from '../models/task.model';
 import {AuthService} from "../services/auth.service";
 import {Subject, takeUntil} from "rxjs";
 import {Router} from "@angular/router";
 import {RoutingService} from "../services/routing.service";
-import {MatTable} from "@angular/material/table";
-import {FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {MatButtonModule} from "@angular/material/button";
+
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+
 import {EditDialogComponent} from "../edit-dialog/edit-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {MatTable} from "@angular/material/table";
 
 export interface DialogData {
   taskId: number;
@@ -33,25 +32,26 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private unSubOnDelete$: Subject<void> = new Subject();
   private unSubOnDone$: Subject<void> = new Subject();
 
-  // taskEditControl = new FormControl(
-  //   '', {
+  addTaskForm: FormGroup = new FormGroup({
+    taskDescription: new FormControl('', {
+      validators:[
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(20)],
+      asyncValidators:[],
+      updateOn: 'blur'
+    })
+  });
+  // taskControl = new FormControl(
+  //   '',{
   //     validators:[
   //       Validators.required,
   //       Validators.minLength(4),
   //       Validators.maxLength(20)],
   //     asyncValidators:[],
-  //     updateOn:'blur'
+  //     updateOn: 'blur'
   //   }
-  //);
-  taskControl = new FormControl(
-    '',{
-      validators:[
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(20)],
-      asyncValidators:[]
-    }
-  );
+  // );
   constructor(
     public taskHandler: TaskHandlerService,
     private authorization: AuthService,
@@ -69,7 +69,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.authorization.checkIfLoggedIn();
   }
   onSubmitAddTask(taskDescription: string): void {
-    if(this.taskControl.invalid){
+    if(this.addTaskForm.invalid){
       return;
     }
     this.taskHandler.addTask(taskDescription).pipe(
@@ -77,9 +77,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     ).subscribe(
       () => {
         this.refreshRows()
-        this.taskControl.reset();
-        this.taskControl.markAsPristine();
-        this.taskControl.markAsUntouched();
+        //this.addTaskForm.reset();
+        //this.addTaskForm.markAsPristine();
+        //this.addTaskForm.markAsUntouched();
       }
     );
   }
