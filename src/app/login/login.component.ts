@@ -12,7 +12,7 @@ import {UserExistingValidator} from "../validators/user-existing.validator";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements DoCheck, OnInit,OnDestroy {
+export class LoginComponent implements OnInit,OnDestroy {
   private properUsernameFlag!: boolean;
   private username: string = '';
 
@@ -60,14 +60,17 @@ export class LoginComponent implements DoCheck, OnInit,OnDestroy {
       takeUntil(this.unsub$)
     ).subscribe(
       (result: boolean) => {
-        this.properUsernameFlag = result;
-        this.username = username;
+       if(result)
+         this.authorization.setCookieUsername(username);
+          // router navigate dashboard
+          //TODO zrobic to router. navigate
       }
     );
   }
 
   ngOnInit() {
-    this.authorization.checkIfLoggedInLoginPage();
+    //this.authorization.checkIfLoggedInLoginPage();
+
   }
 
   ngOnDestroy() {
@@ -75,11 +78,11 @@ export class LoginComponent implements DoCheck, OnInit,OnDestroy {
     this.unsub$.complete();
   }
 
-  ngDoCheck(): void {
-    if (this.properUsernameFlag) {
-      this.authorization.handleUserProperlyLogged(this.username);
-      this.properUsernameFlag = false;
-    }
-  }
+  // ngDoCheck(): void {
+  //   if (this.properUsernameFlag) {
+  //     this.authorization.handleUserProperlyLogged(this.username);
+  //     this.properUsernameFlag = false;
+  //   }
+  // }
 
 }

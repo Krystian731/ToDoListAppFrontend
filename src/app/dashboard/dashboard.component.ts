@@ -66,7 +66,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       takeUntil(this.unSubGetTasks$)
     ).subscribe((data) => this.tasks = data);
 
-    this.authorization.checkIfLoggedIn();
+    this.authorization.isLoggedIn();
   }
   onSubmitAddTask(taskDescription: string): void {
     if(this.addTaskForm.invalid){
@@ -105,10 +105,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
-    this.authorization.deleteCookieUserLoggedIn();
     this.authorization.deleteCookieUsername();
     this.routing.refreshPage();
-
+  //TODO router.navigate to loginpage
   }
   refreshRows(): void {
     this.taskHandler.getTasks().pipe(
