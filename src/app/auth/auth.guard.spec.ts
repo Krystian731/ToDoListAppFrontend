@@ -1,13 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AuthGuard } from './auth.guard';
+import { authGuard } from './auth.guard';
+import {UrlTree} from "@angular/router";
 
 describe('AuthGuard', () => {
-  let guard: AuthGuard;
+  let guard: boolean | UrlTree;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    guard = TestBed.inject(AuthGuard);
+    guard = TestBed.inject(authGuard);
   });
 
   it('should be created', () => {

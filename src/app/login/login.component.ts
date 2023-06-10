@@ -1,4 +1,4 @@
-import {Component, DoCheck, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {UsersHandlerService} from "../services/users-handler.service";
 import {AuthService} from "../services/auth.service";
@@ -6,13 +6,14 @@ import {Subject, takeUntil} from "rxjs";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserNotExistingValidator} from "../validators/user-not-existing.validator";
 import {UserExistingValidator} from "../validators/user-existing.validator";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit,OnDestroy {
+export class LoginComponent implements OnDestroy {
   private properUsernameFlag!: boolean;
   private username: string = '';
 
@@ -39,7 +40,8 @@ export class LoginComponent implements OnInit,OnDestroy {
     private userHandler: UsersHandlerService,
     private authorization: AuthService,
     private signUpValidate: UserNotExistingValidator,
-    private signInValidate: UserExistingValidator
+    private signInValidate: UserExistingValidator,
+    private router: Router
   ) { }
 
   addNewUser(userName: string) {
@@ -62,27 +64,15 @@ export class LoginComponent implements OnInit,OnDestroy {
       (result: boolean) => {
        if(result)
          this.authorization.setCookieUsername(username);
-          // router navigate dashboard
+          this.router.navigate(['/','dashboard']);
           //TODO zrobic to router. navigate
       }
     );
-  }
-
-  ngOnInit() {
-    //this.authorization.checkIfLoggedInLoginPage();
-
   }
 
   ngOnDestroy() {
     this.unsub$.next();
     this.unsub$.complete();
   }
-
-  // ngDoCheck(): void {
-  //   if (this.properUsernameFlag) {
-  //     this.authorization.handleUserProperlyLogged(this.username);
-  //     this.properUsernameFlag = false;
-  //   }
-  // }
 
 }
