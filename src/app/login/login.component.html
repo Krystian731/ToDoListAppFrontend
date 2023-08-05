@@ -1,0 +1,33 @@
+<main class="min-w-fit flex flex-row justify-center items-center h-screen">
+  <section class="mx-8 pb-24 flex flex-col items-center justify-center">
+      <h1 class="">Zarejestruj</h1>
+      <form [formGroup]="signUpForm" class=" mt-6 flex flex-col justify-center items-center" >
+        <mat-form-field>
+          <input matInput type="text" placeholder="nazwa użytkownika" formControlName="username" #username>
+<!--          <mat-error *ngIf="signUpControl.invalid">{{getErrorMessageSignUp()}}</mat-error>-->
+          <mat-error *ngIf="signUpForm.invalid">{{signUpForm.get('username')?.errors | getErrorMessUser}} </mat-error>
+
+
+        </mat-form-field>
+        <button class="mt-6" mat-flat-button color="primary" (click)="addNewUser(username.value)" >zarejestruj</button>
+
+      </form>
+    </section>
+
+  <section class="mx-8 pb-24 flex flex-col items-center justify-center">
+    <h1 class="">Zaloguj </h1>
+    <form [formGroup]="signInForm" class=" mt-6 flex flex-col justify-center items-center">
+      <mat-form-field>
+        <input  matInput type="text" placeholder="nazwa użytkownika" formControlName="username" #userData>
+
+          <mat-error *ngIf="signInForm.invalid">{{signInForm.get('username')?.errors | getErrorMessUser}}</mat-error>
+
+
+      </mat-form-field>
+
+      <button  class="mt-6" (click)="authorize(userData.value)" aria-label="submit button for adding tasks" color="primary"
+              mat-flat-button>zaloguj</button>
+
+    </form>
+  </section>
+</main>
