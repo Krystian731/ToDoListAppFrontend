@@ -1,12 +1,8 @@
 import { inject } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  createUrlTreeFromSnapshot,
-  Router
-} from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
-export const authGuard = (next: ActivatedRouteSnapshot) => {
+export const authGuard = () => {
   const router = inject(Router);
   console.log('guard');
   return (inject(AuthService).isLoggedIn() ? true : router.parseUrl('/loginPage'));

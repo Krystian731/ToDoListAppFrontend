@@ -14,8 +14,6 @@ import {Router} from "@angular/router";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnDestroy {
-  private properUsernameFlag!: boolean;
-  private username: string = '';
 
   signUpForm: FormGroup = new FormGroup({
     username: new FormControl('', {
@@ -65,7 +63,6 @@ export class LoginComponent implements OnDestroy {
        if(result)
          this.authorization.setCookieUsername(username);
           this.router.navigate(['/','dashboard']);
-          //TODO zrobic to router. navigate
       }
     );
   }
