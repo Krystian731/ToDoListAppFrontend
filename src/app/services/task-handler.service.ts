@@ -29,7 +29,7 @@ constructor(private http: HttpClient, private errorhandler: ErrorHandlerService)
   }
 
   addTask(description: string): Observable<unknown> {
-    const taskUrl = 'http://localhost:8080/tasks';
+    const taskUrl = 'http://localhost:8080/tasks'; //TODO unmock it [no backend solution at this moment]
     const body = {
       taskId: 0,
       userId: 2,
@@ -38,7 +38,6 @@ constructor(private http: HttpClient, private errorhandler: ErrorHandlerService)
       taskCompletionDate: null
     };
     return this.http.post(taskUrl, body).pipe(
-      retry(3),
       catchError(this.errorhandler.handleError),
     );
   }

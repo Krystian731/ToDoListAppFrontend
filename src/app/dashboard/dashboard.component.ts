@@ -42,16 +42,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       updateOn: 'blur'
     })
   });
-  // taskControl = new FormControl(
-  //   '',{
-  //     validators:[
-  //       Validators.required,
-  //       Validators.minLength(4),
-  //       Validators.maxLength(20)],
-  //     asyncValidators:[],
-  //     updateOn: 'blur'
-  //   }
-  // );
+
   constructor(
     public taskHandler: TaskHandlerService,
     private authorization: AuthService,
@@ -107,8 +98,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   onLogout() {
     this.authorization.deleteCookieUsername();
-    this.routing.refreshPage();
-  //TODO router.navigate to loginpage
+    //this.routing.refreshPage();
+    this.router.navigateByUrl('/loginPage');
   }
   refreshRows(): void {
     this.taskHandler.getTasks().pipe(

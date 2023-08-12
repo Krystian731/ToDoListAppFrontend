@@ -4,7 +4,6 @@
       <form [formGroup]="signUpForm" class=" mt-6 flex flex-col justify-center items-center" >
         <mat-form-field>
           <input matInput type="text" placeholder="nazwa użytkownika" formControlName="username" #username>
-<!--          <mat-error *ngIf="signUpControl.invalid">{{getErrorMessageSignUp()}}</mat-error>-->
           <mat-error *ngIf="signUpForm.invalid">{{signUpForm.get('username')?.errors | getErrorMessUser}} </mat-error>
 
 
@@ -21,7 +20,6 @@
         <input  matInput type="text" placeholder="nazwa użytkownika" formControlName="username" #userData>
 
           <mat-error *ngIf="signInForm.invalid">{{signInForm.get('username')?.errors | getErrorMessUser}}</mat-error>
-
 
       </mat-form-field>
 
