@@ -15,7 +15,7 @@ constructor(private http: HttpClient, private errorhandler: ErrorHandlerService)
 
   getTasks():Observable<Task[]> {
     const tasksUrl = "http://localhost:8080/tasks/";
-    const userId: number  = 2;
+    const userId: number  = 2; //TODO unmock it [no backend soluton]
      return this.http.get<Task[]>(tasksUrl + userId).pipe(
        retry(3),
        catchError(this.errorhandler.handleError)
