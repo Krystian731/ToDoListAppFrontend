@@ -9,8 +9,7 @@
 * [Setup](#setup)
 
 ## General info
-This project is a management system for my friend's flower shop. It is designed to manage upcoming orders. 
-	
+Educational project as a todolist. 
 ## Technologies
 The project is created with:
 * angular/core: "15.2.0" <img style="width:20px" src="https://user-images.githubusercontent.com/25181517/183890595-779a7e64-3f43-4634-bad2-eceef4e80268.png" />
