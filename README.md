@@ -9,7 +9,7 @@
 * [Setup](#setup)
 
 ## General info
-Educational project as a todolist. 
+Educational project as a todolist. That was my first project - the code quality is very low and I am aware of it. 
 ## Technologies
 The project is created with:
 * angular/core: "15.2.0" <img style="width:20px" src="https://user-images.githubusercontent.com/25181517/183890595-779a7e64-3f43-4634-bad2-eceef4e80268.png" />
