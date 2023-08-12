@@ -31,8 +31,11 @@ The project is created with:
   - [x] Add task
   - [x] Delete task
   - [x] Edit task
+  - [x] Mark task as done
 ## Usage 
-TODO
+<img  src="./images/login-page.png"/> 
+<img  src="./images/dashboard.png"/>
+<img  src="./images/edit-tab.png"/> 
 ## Prerequisites
  Make sure you have Node.js and npm (Node Package Manager) installed on your computer.<br>
 You can download them from the official website: https://nodejs.org/
