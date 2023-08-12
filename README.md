@@ -7,7 +7,6 @@
 * [Usage](#usage)
 * [Prerequisites](#prerequisites)
 * [Setup](#setup)
-* [Roadmap](#Roadmap)
 
 ## General info
 This project is a management system for my friend's flower shop. It is designed to manage upcoming orders. 
@@ -34,8 +33,10 @@ The project is created with:
   - [x] Mark task as done
 ## Usage 
 <img  src="./images/login-page.png"/> 
-<img  src="./images/dashboard.png"/>
+<img  src="./images/dashboard-.png"/>
 <img  src="./images/edit-tab.png"/> 
+
+
 ## Prerequisites
  Make sure you have Node.js and npm (Node Package Manager) installed on your computer.<br>
 You can download them from the official website: https://nodejs.org/
@@ -56,6 +57,13 @@ cd ToDoListAppFrontend
 ```
 npm install
 ```
+5. Serve the Application:
+```
+ng serve
+```
+ Then navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+ 
+ Note that the application will not work properly without running OrdersAppBackend.
 5. Serve the Application:
 ```
 ng serve
