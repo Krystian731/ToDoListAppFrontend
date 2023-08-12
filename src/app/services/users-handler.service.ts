@@ -11,7 +11,7 @@ export class UsersHandlerService {
 
   constructor(private http: HttpClient, private errorhandler: ErrorHandlerService) { }
 
-  addNewUser(username: string): Observable<boolean> {
+  addNewUser(username: string): Observable<boolean> { //TODO unmockit
     const body = {
       userId: 0,
       username: username

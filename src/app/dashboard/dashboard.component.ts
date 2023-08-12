@@ -66,7 +66,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       takeUntil(this.unSubGetTasks$)
     ).subscribe((data) => this.tasks = data);
 
-    this.authorization.checkIfLoggedIn();
+    this.authorization.isLoggedIn();
   }
   onSubmitAddTask(taskDescription: string): void {
     if(this.addTaskForm.invalid){
@@ -95,6 +95,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
   onDone(taskId: number) {
     const taskFinishDate="2023-05-28T00:00:00"
+    //TODO unmock it
     this.taskHandler.finishTask(taskId, taskFinishDate).pipe(
       takeUntil(this.unSubOnDone$),
     ).subscribe(
@@ -105,10 +106,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
-    this.authorization.deleteCookieUserLoggedIn();
     this.authorization.deleteCookieUsername();
     this.routing.refreshPage();
-
+  //TODO router.navigate to loginpage
   }
   refreshRows(): void {
     this.taskHandler.getTasks().pipe(
@@ -124,13 +124,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
       this.taskHandler.updateTask(taskId, result).pipe(
-            //takeUntil(this.unSubOnEdit$)
           ).subscribe(
         () => {
-              //TODO make it works
-              //this.refreshRows();
+              this.refreshRows();
             }
           );
     });

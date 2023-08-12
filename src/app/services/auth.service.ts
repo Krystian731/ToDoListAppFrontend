@@ -28,14 +28,8 @@ export class AuthService {
     }
   }
 
-  checkIfLoggedIn(){
-    if(!this.cookieService.check('flagIfUserLoggedIn')){
-      this.router.navigate(['/','loginPage']).then(nav => {
-        console.log(nav);
-      }, err => {
-        console.log(err)
-      });
-    }
+  isLoggedIn(): boolean {
+    return this.cookieService.check('username');
   }
 
   setCookieUsername(username: string) {

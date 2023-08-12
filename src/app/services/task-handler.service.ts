@@ -25,7 +25,6 @@ constructor(private http: HttpClient, private errorhandler: ErrorHandlerService)
   updateTask(taskId: number, taskNewText: string):Observable<unknown> {
     const tasksUrl = "http://localhost:8080/tasks/" + taskId + "/updateText?text=" + taskNewText;
     return this.http.patch(tasksUrl,"").pipe(
-     catchError(this.errorhandler.handleError)
     );
   }
 

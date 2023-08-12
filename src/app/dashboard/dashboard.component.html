@@ -18,15 +18,15 @@
           <td mat-cell *matCellDef="let task">
 
             <div>
-              <button mat-icon-button color="primary" (click)="onDone(task.taskId)">
+              <button mat-icon-button color="primary" type="button" (click)="onDone(task.taskId)">
                 <mat-icon>check</mat-icon>
               </button>
 
-              <button mat-icon-button  [routerLink]="['edit-card', task.taskId]" (click)="openEditDialog(task.taskId,task.taskText)">
+              <button mat-icon-button  type="button" (click)="openEditDialog(task.taskId,task.taskText)">
                 <mat-icon>edit</mat-icon>
               </button>
 
-              <button mat-icon-button color="warn" (click)="onDelete(task.taskId)">
+              <button mat-icon-button color="warn" type="button" (click)="onDelete(task.taskId)">
                 <mat-icon>delete</mat-icon>
               </button>
 
