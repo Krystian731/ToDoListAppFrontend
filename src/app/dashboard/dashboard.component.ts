@@ -95,6 +95,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
   onDone(taskId: number) {
     const taskFinishDate="2023-05-28T00:00:00"
+    //TODO unmock it
     this.taskHandler.finishTask(taskId, taskFinishDate).pipe(
       takeUntil(this.unSubOnDone$),
     ).subscribe(
@@ -123,13 +124,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
       this.taskHandler.updateTask(taskId, result).pipe(
-            //takeUntil(this.unSubOnEdit$)
           ).subscribe(
         () => {
-              //TODO make it works
-              //this.refreshRows();
+              this.refreshRows();
             }
           );
     });
